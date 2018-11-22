@@ -1,4 +1,5 @@
-import { default as computed } from "ember-addons/ember-computed-decorators";
+import { default as computed ,observes} from "ember-addons/ember-computed-decorators";
+import debounce from "discourse/lib/debounce";
 
 const Tab = Ember.Object.extend({
   init() {
@@ -14,6 +15,12 @@ export default Ember.Controller.extend({
   counts: null,
   showing: "members",
   destroying: null,
+  filter: "",
+
+  @observes("filterInput")
+  _setFilter: debounce(function() {
+    this.set("filter", this.get("filterInput"));
+  }, 500),
 
   @computed("showMessages", "model.user_count", "canManageGroup")
   tabs(showMessages, userCount, canManageGroup) {
