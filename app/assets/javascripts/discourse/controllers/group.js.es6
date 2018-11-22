@@ -16,11 +16,23 @@ export default Ember.Controller.extend({
   showing: "members",
   destroying: null,
   filter: "",
+  is_display: true,
 
   @observes("filterInput")
   _setFilter: debounce(function() {
+    console.log("filterInputoooo");
+    this.hide_groups(this.get("filterInput"));
     this.set("filter", this.get("filterInput"));
   }, 500),
+
+  hide_groups(filterinput){
+  if(filterinput){
+    this.set("is_display", false);
+  }
+  else{
+    this.set("is_display", true);
+  }
+  },
 
   @computed("showMessages", "model.user_count", "canManageGroup")
   tabs(showMessages, userCount, canManageGroup) {

@@ -19,6 +19,7 @@
                     {{/link-to}}
                     {{/each}}
 </div>
+{{#if is_display}}
 {{plugin-outlet name="before-group-container" args=(hash group=model)}}
 
 <div class="container group {{model.name}}">
@@ -87,3 +88,4 @@
       </div>
     </div>
 </div>
+{{/if}}
