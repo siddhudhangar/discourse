@@ -4,6 +4,7 @@ export default Discourse.Route.extend({
   },
 
   model(params) {
+    this._params = params;
     return this.store.find("group", params.name);
   },
 
@@ -11,7 +12,11 @@ export default Discourse.Route.extend({
     return { name: model.get("name").toLowerCase() };
   },
 
-  setupController(controller, model) {
-    controller.setProperties({ model });
+  setupController(controller, model,params) {
+    controller.setProperties({ model ,filterInput: this._params.filter});
+    this.store.findAll('group', params).then(function(group) {
+      controller.set('groups_model', group);
+    });    
+    
   }
 });

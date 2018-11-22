@@ -1,3 +1,24 @@
+ <div class="">
+       {{text-field value=filterInput
+          placeholderKey="groups.index.all"
+          class="groups-header-filters-name no-blur"}}
+
+ {{#each groups_model as |group|}}
+                    {{#link-to "group.members" group.name}}{{group.name}}
+                      {{#if group.flair_url}}
+                        <span class='group-avatar-flair'>
+                          {{avatar-flair
+                            flairURL=group.flair_url
+                            flairBgColor=group.flair_bg_color
+                            flairColor=group.flair_color
+                            groupName=group.name}}
+                        </span>
+                      {{/if}}
+
+                      {{!--{{groups-info group=group}}--}}
+                    {{/link-to}}
+                    {{/each}}
+</div>
 {{plugin-outlet name="before-group-container" args=(hash group=model)}}
 
 <div class="container group {{model.name}}">
